@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "react-query";
+import App from "./App";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Some } from "./Some";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient();
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+  <Router>
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        {process.env.NODE_ENV !== "production" && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+        <Routes>
+          <Route path="/some" element={<Some />} />
+          <Route path="/" element={<App />} />
+        </Routes>
+      </QueryClientProvider>
+    </React.StrictMode>
+  </Router>
+);
