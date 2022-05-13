@@ -6,26 +6,26 @@ import "react-toastify/dist/ReactToastify.css";
 import { useLoad } from "./useLoad";
 
 function App() {
-  // const { isLoading, isSuccess, data, isError } = useQuery({
-  //   queryKey: "super-heros",
-  //   queryFn: () => {
-  //     // return fetch("https://swapi/api/people").then((data) => data.json());
-  //     return fetch("https://swapi.dev/api/people").then((data) => data.json());
-  //   },
-  //   onSuccess: () => {
-  //     const notify = () => toast.success("all data is fechted");
-  //     notify();
-  //   },
-  //   onError: () => {
-  //     const notify = () => toast.error("server is down");
-  //     notify();
-  //   },
+  const { isLoading, isSuccess, data, isError } = useQuery({
+    queryKey: "super-heros",
+    queryFn: () => {
+      // return fetch("https://swapi/api/people").then((data) => data.json());
+      return fetch("https://swapi.dev/api/people").then((data) => data.json());
+    },
+    onSuccess: () => {
+      const notify = () => toast.success("all data is fechted");
+      notify();
+    },
+    onError: () => {
+      const notify = () => toast.error("server is down");
+      notify();
+    },
 
-  //   cacheTime: 2000,
-  //   retry: false,
-  // });
+    staleTime: 300000,
+    retry: false,
+  });
 
-  const { isLoading, isSuccess, data, isError } = useLoad();
+  // const { isLoading, isSuccess, data, isError } = useLoad();
 
   return (
     <div>
