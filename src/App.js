@@ -21,6 +21,11 @@ function App() {
       notify();
     },
 
+    refetchOnMount: true,
+    refetchIntervalInBackground: true,
+    refetchOnReconnect: true,
+    refetchInterval: 5000,
+
     staleTime: 300000,
     retry: false,
   });
