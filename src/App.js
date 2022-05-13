@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useLoad } from "./useLoad";
 
 function App() {
+  const [counter, setCounter] = useState(0);
+
   const { isLoading, isSuccess, data, isError } = useQuery({
     queryKey: "super-heros",
     queryFn: () => {
@@ -21,12 +23,8 @@ function App() {
       notify();
     },
 
-    refetchOnMount: true,
-    refetchIntervalInBackground: true,
-    refetchOnReconnect: true,
-    refetchInterval: 5000,
+    enabled: counter % 3 === 0 && counter !== 0,
 
-    staleTime: 300000,
     retry: false,
   });
 
@@ -35,6 +33,12 @@ function App() {
   return (
     <div>
       <h1>starwars page</h1>
+
+      <div>counter: {counter}</div>
+      <button onClick={() => setCounter((p) => ++p)}>+</button>
+      <button onClick={() => setCounter((p) => --p)}>-</button>
+
+      <br />
 
       <Link to="/some">go to some page</Link>
 
