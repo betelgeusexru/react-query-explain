@@ -1,22 +1,21 @@
 import React, { useState } from "react";
+import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { useReactQueryMutation } from "./mutate";
-
-const ids = [1, 2];
 
 function App() {
-  const [id, setId] = useState(null);
-  const { mutate } = useReactQueryMutation();
+  const { refetch } = useQuery({
+    queryKey: "people",
+    queryFn: () => {
+      return fetch("https://swapi.dev/api/people").then((data) => data.json());
+    },
+  });
 
   return (
-    <>
-      <input
-        placeholder="new id"
-        type="number"
-        onChange={(e) => setId(parseInt(e.target.value, 10))}
-      />
-      <button onClick={() => mutate(id)}>post</button>
-    </>
+    <div>
+      <Link to="/some">go to some page</Link>
+      <button onClick={() => refetch()}>fetch</button>
+    </div>
   );
 }
 
