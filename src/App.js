@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQueries, useQuery } from "react-query";
+import { useQueries, useQuery, useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,6 +9,7 @@ const ids = [1, 2];
 
 function App() {
   const [start, setStart] = useState(false);
+  const queryClient = useQueryClient();
 
   const result = useQueries(
     ids.map((id) => {
@@ -27,9 +28,21 @@ function App() {
   return (
     <div>
       refetch{" "}
-      <button onClick={() => setStart((p) => !p)}>
+      <button
+        onClick={() => {
+          setStart((p) => !p);
+        }}
+      >
         click and check console
       </button>
+      <button
+        onClick={() => {
+          queryClient.clear();
+        }}
+      >
+        clear cache
+      </button>
+      {/*  */}
       {start &&
         result.map((res) => {
           if (res.isSuccess) {
