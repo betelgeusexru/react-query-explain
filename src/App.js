@@ -37,6 +37,12 @@ function App() {
     <div>
       <h1>starwars page</h1>
 
+      <div>counter: {counter}</div>
+      <button onClick={() => setCounter((p) => ++p)}>+</button>
+      <button onClick={() => setCounter((p) => --p)}>-</button>
+
+      <br />
+
       <Link to="/some">go to some page</Link>
 
       <div>
