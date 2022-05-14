@@ -9,6 +9,7 @@ function App() {
     queryFn: () => {
       return fetch("https://swapi.dev/api/people").then((data) => data.json());
     },
+    enabled: false,
   });
 
   return (
